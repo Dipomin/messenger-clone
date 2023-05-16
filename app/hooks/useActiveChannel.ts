@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import useActiveList from "./useActiveList"
 import { Channel, Members } from "pusher-js";
 import { pusherClient } from "../libs/pusher";
-import { stringify } from "querystring";
-
  
 const useActiveChannel = () => {
   const { set, add, remove } = useActiveList();
@@ -21,6 +19,7 @@ const useActiveChannel = () => {
         const initialMembers: string[] = [];
 
         members.each((member: Record<string, any>) => initialMembers.push(member.id));
+        set(initialMembers);
     })
 
     channel.bind("pusher: member_added", (member: Record<string, any>) =>{
